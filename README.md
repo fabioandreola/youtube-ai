@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YouTube Search
 
-## Getting Started
+<img src="img/app.png" alt="YouTube Search" width="500">
 
-First, run the development server:
+## Welcome! 👋
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ever feel like there's just not enough time in the day to watch all those amazing YouTube videos you've bookmarked? As a parent of two wonderful (but time-consuming) kids, I found myself in the same boat. That's when I had an idea: what if I could quickly get the gist of a video without having to watch the entire thing?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+That's how this project was born. It's a proof of concept (POC) designed to help summarize YouTube videos quickly and easily. Now I can catch up on all that interesting content during those rare quiet moments between diaper changes and snack times. 😅
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What Does This App Do?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This app is like having a super-smart assistant who watches YouTube videos for you and then lets you chat about them. Here's the rundown:
 
-## Learn More
+1. **Transcribe YouTube Videos**: Just paste in a YouTube URL, and voilà! The app grabs the audio and turns it into text.
+2. **Smart Search**: Want to find a specific part of the video? Just search for keywords in the transcription.
+3. **AI-Powered Chat**: You can actually chat with an AI about the video content. It's like having a study buddy who's watched the video a million times.
 
-To learn more about Next.js, take a look at the following resources:
+## The Tech Stuff (for My Fellow Geeks)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you're into the details, here's what's under the hood:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Frontend**: React with Next.js, for a speedy, SEO-friendly app.
+- **Styling**: Tailwind CSS, making things pretty without the CSS headaches.
+- **Backend**: Next.js API routes, keeping things nice and tidy in one project.
+- **Transcription**: OpenAI's Whisper model, because it's excellent at turning speech into text.
+- **Chat AI**: GPT-4, the brains behind our chatty assistant.
+- **Database**: SQLite, keeping things simple for storing transcriptions.
+- **Video Processing**: ytdl-core and fluent-ffmpeg, doing the heavy lifting for grabbing YouTube audio.
 
-## Deploy on Vercel
+## Architecture in a Nutshell
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **User Interface**: A slick React app with tabs for chat and search.
+2. **API Layer**: Next.js API routes handling transcription requests and AI chat.
+3. **Data Flow**: 
+   - YouTube URL → Download Audio → Transcribe → Store in SQLite
+   - User Query → Fetch Transcription → AI Processing → Chat Response
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Want to Try It Out?
+
+1. Clone the repository: `git clone [your-repo-url]`
+2. Install dependencies: `npm install`
+3. Set up your `.env` file with your OpenAI API key
+4. Start the development server: `npm run dev`
+5. Head to `http://localhost:3000` and give it a go!
+
+## What's Next?
+
+This is just a POC. There's a lot of stuff that's missing.
+- Summarization features (because sometimes you want the TL;DR)
+- Multi-language support (for when you're feeling international)
+- Video chapter generation (jump to the good parts)
+- Authentication
+- A more robust error handling system
+- This POC is currently single user. I'd like to add multi-user support with proper authentication.
+- It would be nice to be able to upload your own videos.
+- The transcription is stored in SQLite. It would be nice to be able to remove them later.
+- The chat interface is very basic. It would be nice to have message history, threads, etc.
+- It does not handle large videos well.
+
+Feel free to contribute, suggest ideas, or just give it a spin and let me know what you think. Happy watching (or not watching, but learning anyway)! 🎉
