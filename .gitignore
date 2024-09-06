@@ -40,3 +40,5 @@ next-env.d.ts
 
 # DB 
 transcriptions.sqlite
+
+.env

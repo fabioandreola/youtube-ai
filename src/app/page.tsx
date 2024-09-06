@@ -32,7 +32,7 @@ export default function Home() {
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [transcription, setTranscription] = useState('');
   const [segments, setSegments] = useState<Segment[]>([]);
-  const [words, setWords] = useState<Word[]>([]);
+  const [words, setWords] = useState<Word[]>([]); // Add this line
   const [searchResults, setSearchResults] = useState<Segment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('chat');
@@ -44,7 +44,7 @@ export default function Home() {
     // Clear previous results
     setTranscription('');
     setSegments([]);
-    setWords([]);
+    setWords([]); // Now this should work
     setSearchResults([]);
     setChatMessages([]); // Clear chat messages when a new URL is submitted
   };
