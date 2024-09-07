@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { Downloader } from 'ytdl-mp3';
-import ytdl from 'ytdl-core';
 import fs from 'fs';
 import path from 'path';
 import OpenAI from 'openai';
@@ -11,7 +10,7 @@ import { getTranscription, saveTranscription } from '@/lib/db';
 import { promisify } from 'util';
 import { exec } from 'child_process';
 
-const execAsync = promisify(exec);
+promisify(exec);
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
@@ -48,7 +47,7 @@ async function convertAudio(inputPath: string, outputPath: string): Promise<void
         console.log('Audio conversion finished');
         resolve();
       })
-      .on('error', (err) => {
+      .on('error', (err: Error) => {
         console.error('Error during audio conversion:', err);
         reject(err);
       })
@@ -97,15 +96,12 @@ export async function POST(req: Request) {
     // Clear previous MP3 files
     clearTempFolder(outputDir);
 
-    const info = await ytdl.getInfo(youtubeUrl);
-    const sanitizedTitle = info.videoDetails.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-
     console.log('Downloading audio from YouTube');
     const downloader = new Downloader({
       getTags: false,
       outputDir: outputDir,
     });
-    await downloader.downloadSong(youtubeUrl, `${sanitizedTitle}.mp3`);
+    await downloader.downloadSong(youtubeUrl);
     console.log('YouTube download complete');
 
     // Find the downloaded file
@@ -132,12 +128,17 @@ export async function POST(req: Request) {
     console.log('Temporary file deleted');
 
     // Save transcription to database
-    await saveTranscription(youtubeUrl, transcription.text, transcription.segments, transcription.words);
+    await saveTranscription(
+      youtubeUrl, 
+      (transcription as any).text, 
+      (transcription as any).segments, 
+      (transcription as any).words
+    );
 
     return NextResponse.json({ 
-      transcription: transcription.text,
-      segments: transcription.segments,
-      words: transcription.words
+      transcription: (transcription as any).text,
+      segments: (transcription as any).segments,
+      words: (transcription as any).words
     });
   } catch (error) {
     console.error('Error:', error);

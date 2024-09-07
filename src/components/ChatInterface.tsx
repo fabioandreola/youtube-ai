@@ -66,10 +66,12 @@ export default function ChatInterface({ transcription, onSendMessage, messages, 
                 components={{
                   p: ({node, ...props}) => <p className="mb-1" {...props} />,
                   a: ({node, ...props}) => <a className="text-blue-300 hover:underline" {...props} />,
-                  code: ({node, inline, ...props}) => 
-                    inline 
+                  code: ({node, ...props}: any) => {
+                    const inline = (props as any).inline;
+                    return inline 
                       ? <code className="bg-gray-800 px-1 rounded" {...props} />
                       : <code className="block bg-gray-800 p-2 rounded my-1" {...props} />
+                  }
                 }}
               >
                 {message.content}

@@ -38,11 +38,33 @@ If you're into the details, here's what's under the hood:
 
 ## Want to Try It Out?
 
+You have two options to run the app:
+
+### Option 1: Local Development
+
 1. Clone the repository: `git clone [your-repo-url]`
 2. Install dependencies: `npm install`
 3. Set up your `.env` file with your OpenAI API key
 4. Start the development server: `npm run dev`
 5. Head to `http://localhost:3000` and give it a go!
+
+### Option 2: Docker
+
+If you prefer using Docker, follow these steps:
+
+1. Clone the repository: `git clone [your-repo-url]`
+2. Make sure you have Docker and Docker Compose installed on your system
+3. Create a `.env` file in the root directory and add your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   ```
+4. Build and run the Docker container:
+   ```
+   docker-compose up --build
+   ```
+5. Once the container is running, visit `http://localhost:3000` in your browser
+
+Note: When using Docker, the transcriptions will be stored in a SQLite database inside the container. The database file is mounted as a volume, so your transcriptions will persist even if you stop and restart the container.
 
 ## What's Next?
 
